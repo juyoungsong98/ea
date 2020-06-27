@@ -1,0 +1,21 @@
+database (sql)
+    -short
+        -date
+        -title
+        -description
+        -type
+        -link
+    -long
+        -date
+        -title
+        -description
+        -type
+        -link
+
+routes
+
+/ : log in page
+/<date> : info for given date
+/months : calander view, click on data to get to /<date>
+
+
