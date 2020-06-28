@@ -14,7 +14,7 @@ db = scoped_session(sessionmaker(bind=engine))    # create a 'scoped session' th
 
 f = open("resources.csv")
 reader = csv.reader(f)
-for title,type,length,image in reader: # loop gives each column a name
-    db.execute("INSERT INTO resources (title,type,length,image) VALUES (:title, :type, :length,:image)",
-                  {"title": title, "type": type, "length": length,"image":image}) # substitute values from CSV line into SQL command, as per this dict
+for title,type,length,image,link in reader: # loop gives each column a name
+    db.execute("INSERT INTO resources (title,type,length,image,link) VALUES (:title, :type, :length,:image, :link)",
+                  {"title": title, "type": type, "length": length,"image":image, "link":link}) # substitute values from CSV line into SQL command, as per this dict
 db.commit() # transactions are assumed, so close the transaction finished

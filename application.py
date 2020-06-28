@@ -17,6 +17,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+resources = []
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
@@ -47,16 +48,22 @@ def login():
     else: #user/pass already in db (old user)
         return render_template("choice.html")
 
-
 @app.route("/day", methods=["GET","POST"])
 def day():
     #User selects how much time to spend 
     if request.method == "POST":
         time_selected = request.form.get("time_selected")
+        if time_selected == "5 minutes":
+            time_selected = "short"
+        elif time_selected == "15 minutes":
+            time_selected = "medium"
+        else:
+            time_selected = "long"
         #select 1 resource whose length matches time selected by user (short/med/long)
         resource = db.execute("SELECT * FROM resources WHERE length = :length", {"length":time_selected}).fetchone()
         if resource is None:
             return render_template("error.html", message="Couldn't find a resource")
+        session["resource"]=resource
     #get today's date 
     today = datetime.datetime.now()
     today = today.strftime("%Y-%m-%d")
@@ -67,4 +74,4 @@ def day():
 #Shows month calendar 
 @app.route("/calendar", methods=["GET","POST"])
 def calendar():
-    return render_template("calendar.html")
+    return render_template("calendar.html",resource=session.get("resource", None))

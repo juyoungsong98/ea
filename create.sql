@@ -1,9 +1,8 @@
 create TABLE resources (
-	date VARCHAR NOT NULL,
 	title VARCHAR NOT NULL,
-	description VARCHAR,
 	type VARCHAR NOT NULL,
-	length VARCHAR NOT NULL, 
+	length VARCHAR NOT NULL,
+	image VARCHAR NOT NULL, 
 	link VARCHAR
 );
 

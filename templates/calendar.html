@@ -3,6 +3,10 @@
 
 <head>
 	<style>
+		h1 {
+			color:white;
+			font-family: American Typewriter, serif;
+		}
 		body {
 			background: #111;
 			font-family: Avenir, Helvetica, sans-serif;
@@ -94,7 +98,8 @@
 		}
 
 		section time a img {
-			width: 100%;
+			width:100%;
+			height: 100%
 		}
 
 		.hidden {
@@ -134,12 +139,9 @@
 <main>
 	<section>
 		{% for i in range(1,31): %}
-		<time datetime="2015-07-27" class="hidden">
-			<a href="http://thenewcode.com/1054/SVG-Meetup-Presentation-Interactive-Imagemaps"><img
-					src="https://cdn.theatlantic.com/thumbor/QI5v_bCoRmkfZfZlNoeCO9y15bc=/211x2013:2727x3427/1440x810/media/img/mt/2020/05/ChaseHall_Image/original.jpg"
-					alt="SVG Meetup Presentation: Interactive Imagemaps"
-					srcset="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/svg-meetup-thumb.png 250w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/svg-meetup-2x-thumb.png 500w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/svg-meetup-2x.png 125w">
-				<span class="caldate">{{i}}</span><span class="title">}</span></a>
+		<time class="hidden">
+			<a href={{resource.link}}><img src={{resource.image}}>
+				<span class="caldate">{{i}}</span><span class="title">{{resource.title}}</span></a>
 		</time>
 		{% endfor %}
 	</section>
