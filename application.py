@@ -40,10 +40,7 @@ def login():
         session["user"] = username
     #user/pass not in db yet (new user)
     if db.execute("SELECT * FROM users WHERE username =:username AND password =:password",{"username":username,"password":password}).rowcount==0:
-        if db.execute("SELECT * FROM users WHERE username =:username", {"username":username}).rowcount>0:
-            return render_template("error.html", message="User already exists.")
-        else:
-            #new user
+        
             session["resources"] = []
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                     {"username":username, "password":password})
