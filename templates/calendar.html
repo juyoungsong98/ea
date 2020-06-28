@@ -4,305 +4,145 @@
 <head>
 	<style>
 		body {
-			margin: 20px;
-			background-color: #EEEDE9;
-			-webkit-font-smoothing: antialiased;
-			text-rendering: optimizeLegibility;
-			font-size: 96.5%;
-			font-family: Helvetica, Arial, sans-serif;
+			background: #111;
+			font-family: Avenir, Helvetica, sans-serif;
 		}
 
-		input {
-			font-family: Helvetica, Arial, sans-serif;
-		}
-
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		p {
-			margin-bottom: 10px;
-		}
-
-		p {
-			line-height: 20px;
-		}
-
-		a {
+		main a {
 			text-decoration: none;
-			color: #FF462B;
 		}
 
-		.clearfix {
-			clear: both;
+		section {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-flex-flow: wrap;
+			-ms-flex-flow: wrap;
+			flex-flow: wrap;
+			font-size: 0;
 		}
 
-		.animate {
-			-webkit-transition: all 0.3s ease-in-out;
-			-moz-transition: all 0.3s ease-in-out;
-			transition: all 0.3s ease-in-out;
-		}
-
-
-		/* required */
-		.calendar {
-			position: absolute;
-			border-radius: 4px;
-			overflow: hidden;
-			width: 800px;
-			height: 450px;
-			left: 50%;
-			margin-left: -400px;
-			margin-top: -225px;
-			top: 50%;
-			background-color: #ffffff;
-			color: #333333;
-		}
-
-		.calendar h1,
-		.calendar h2 {
-			font-weight: 300;
-			font-size: 26px;
-			line-height: 28px;
-			text-transform: uppercase;
-			margin: 0px 0px 20px 0px;
-		}
-
-		.calendar h1 span {
-			display: block;
-		}
-
-		.calendar .col {
+		section time {
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			-webkit-flex: 1 1 14.2857%;
+			-ms-flex: 1;
+			flex: 1;
+			min-width: 14.2857%;
+			max-width: 14.2857vw;
 			position: relative;
-			float: left;
+			font-size: 1.8vw;
+			line-height: 0;
+			-webkit-transition: .35s opacity;
+			transition: .35s opacity;
+		}
+
+		section time.blank {
+			min-height: 14vw;
+		}
+
+		section time a {
+			display: inline-block;
+			width: 100%;
 			height: 100%;
+			position: inherit;
+			border-bottom: none;
+			outline: none;
 		}
 
-		.calendar .col .content {
-			padding: 40px;
+		section time span {
+			position: absolute;
 		}
 
-		.calendar ul {
-			margin: 0px;
+		span.caldate {
+			top: 10%;
+			left: 7px;
+			z-index: 2;
 		}
 
-		.calendar ul li {
-			list-style: none;
+		section time.blank span.caldate {
+			color: #333;
 		}
 
-		.calendar .leftCol {
-			width: 40%;
-			background-color: #F48989;
+		section time a span.title {
+			width: 100%;
+			height: 100%;
+			line-height: 1.1;
+			left: 0;
+			top: 0;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 20%;
+			opacity: 0;
+			-webkit-transition: .4s opacity;
+			transition: .4s opacity;
 		}
 
-		.calendar .noteList li {
-			color: #ffffff;
-			margin-bottom: 10px;
+		section time:hover a span.title {
+			background: rgba(0, 0, 0, 0.8);
+			opacity: 1;
 		}
 
-		.calendar .notes p,
-		.calendar .notes input,
-		.calendar .noteList li {
-			font-weight: 300;
-			font-size: 14px;
+		section time a:hover {
+			border-bottom: none;
 		}
 
-		.calendar .notes p {
-			border-bottom: solid 1px rgba(255, 255, 255, 0.4);
+		time:not(.blank) span {
+			color: #fff;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 		}
 
-		.calendar .notes input {
-			background-color: #F48989;
-			color: #ffffff;
-			border: none;
-			width: 200px;
+		section time a img {
+			width: 100%;
 		}
 
-		.calendar .addNote,
-		.calendar .removeNote {
-			float: right;
-			color: rgba(255, 255, 255, 0.4);
-			font-weight: bold;
-			margin-left: 20px;
+		.hidden {
+			opacity: 100;
 		}
 
-		.calendar .addNote:hover,
-		.calendar .removeNote:hover {
-			color: #ffffff;
+		@media all and (max-width: 950px) {
+			section time.blank {
+				display: none;
+			}
+
+			section time {
+				min-width: 20%;
+				max-height: 20vw;
+				max-width: 20vw;
+				font-size: 3vw;
+			}
 		}
 
-		.calendar .addNote {
-			font-size: 16px;
+		@media all and (max-width: 750px) {
+			section time {
+				min-width: 33%;
+				max-height: 33vw;
+				font-size: 5vw;
+			}
 		}
 
-		.calendar .leftCol h1 {
-			color: #ffffff;
-			margin-bottom: 40px;
-		}
-
-		.calendar .rightCol {
-			width: 60%;
-		}
-
-		.calendar .rightCol h2 {
-			color: #C7BEBE;
-			text-align: right;
-			margin-bottom: 70px;
-		}
-
-		.calendar .months li,
-		.calendar .weekday li,
-		.calendar .days li {
-			float: left;
-			text-transform: uppercase;
-		}
-
-		.calendar .months li a,
-		.calendar .weekday li a,
-		.calendar .days li a {
-			display: block;
-			color: #747978;
-		}
-
-		.calendar .months li a {
-			font-size: 10px;
-			color: #C7BEBE;
-			text-align: center;
-			width: 32px;
-			margin-bottom: 20px;
-		}
-
-		.calendar .months li .selected {
-			font-weight: bold;
-			color: #747978;
-		}
-
-		.calendar .weekday li a {
-			width: 55px;
-			text-align: center;
-			margin-bottom: 20px;
-			font-size: 12px;
-		}
-
-		.calendar .days li {
-			width: 55px;
-		}
-
-		.calendar .days li a {
-			width: 36px;
-			height: 24px;
-			text-align: center;
-			margin: auto auto;
-			font-size: 12px;
-			font-weight: bold;
-			border-radius: 12px;
-			margin-bottom: 10px;
-			padding-top: 10px;
-		}
-
-
-		.calendar .days li a:hover {
-			background-color: #EEEDE9;
-		}
-
-		.calendar .days li .selected {
-			background-color: #F5A1A3 !important;
-			color: #ffffff;
-		}
-
-		.calendar .days li .event {
-			color: #F5A1A3;
-		}
-
-
-		/* placeholder color */
-		::-webkit-input-placeholder {
-			color: #ffffff;
-		}
-
-		:-moz-placeholder {
-			color: #ffffff;
-		}
-
-		::-moz-placeholder {
-			color: #ffffff;
-		}
-
-		:-ms-input-placeholder {
-			color: #ffffff;
+		@media all and (max-width: 450px) {
+			section time {
+				min-width: 50%;
+				max-height: 50vw;
+				font-size: 5vw;
+			}
 		}
 	</style>
 </head>
-<div class="calendar">
-
-	<div class="col leftCol">
-		<div class="content">
-			<h1 class="date">{{year}}<span>{{month}} {{day}}</span></h1>
-			<div class="notes">
-				<p>
-					<input type="text" value="" placeholder="new note" />
-					<a href="#" title="Add note" class="addNote animate">+</a>
-				</p>
-				<ul class="noteList">
-					<li>Headbutt a lion<a href="#" title="Remove note" class="removeNote animate">x</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="col rightCol">
-		<div class="content">
-			<h2 class="year">2013</h2>
-			<ul class="months">
-				<li><a href="#" title="Jan" data-value="1">Jan</a></li>
-				<li><a href="#" title="Feb" data-value="2">Feb</a></li>
-				<li><a href="#" title="Mar" data-value="3">Mar</a></li>
-				<li><a href="#" title="Apr" data-value="4">Apr</a></li>
-				<li><a href="#" title="May" data-value="5">May</a></li>
-				<li><a href="#" title="Jun" data-value="6">Jun</a></li>
-				<li><a href="#" title="Jul" data-value="7">Jul</a></li>
-				<li><a href="#" title="Aug" data-value="8">Aug</a></li>
-				<li><a href="#" title="Sep" data-value="9" class="selected">Sep</a></li>
-				<li><a href="#" title="Oct" data-value="10">Oct</a></li>
-				<li><a href="#" title="Nov" data-value="11">Nov</a></li>
-				<li><a href="#" title="Dec" data-value="12">Dec</a></li>
-			</ul>
-			<div class="clearfix"></div>
-			<ul class="weekday">
-				<li><a href="#" title="Mon" data-value="1">Mon</a></li>
-				<li><a href="#" title="Tue" data-value="2">Tue</a></li>
-				<li><a href="#" title="Wed" data-value="3">Wed</a></li>
-				<li><a href="#" title="Thu" data-value="4">Thu</a></li>
-				<li><a href="#" title="Fri" data-value="5">Fri</a></li>
-				<li><a href="#" title="Say" data-value="6">Sat</a></li>
-				<li><a href="#" title="Sun" data-value="7">Sun</a></li>
-			</ul>
-			<div class="clearfix"></div>
-			<ul class="days">
-				<script>
-					for (var _i = 1; _i <= 31; _i += 1) {
-						var _addClass = '';
-						if (_i === 12) { _addClass = ' class="selected"'; }
-
-						switch (_i) {
-							case 8:
-							case 10:
-							case 27:
-								_addClass = ' class="event"';
-								break;
-						}
-
-						document.write('<li><a href="#" title="' + _i + '" data-value="' + _i + '"' + _addClass + '>' + _i + '</a></li>');
-					}
-				</script>
-			</ul>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-
-	<div class="clearfix"></div>
-
-</div>
+<main>
+	<section>
+		{% for i in range(1,31): %}
+		<time datetime="2015-07-27" class="hidden">
+			<a href="http://thenewcode.com/1054/SVG-Meetup-Presentation-Interactive-Imagemaps"><img
+					src="https://cdn.theatlantic.com/thumbor/QI5v_bCoRmkfZfZlNoeCO9y15bc=/211x2013:2727x3427/1440x810/media/img/mt/2020/05/ChaseHall_Image/original.jpg"
+					alt="SVG Meetup Presentation: Interactive Imagemaps"
+					srcset="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/svg-meetup-thumb.png 250w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/svg-meetup-2x-thumb.png 500w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/svg-meetup-2x.png 125w">
+				<span class="caldate">{{i}}</span><span class="title">}</span></a>
+		</time>
+		{% endfor %}
+	</section>
+</main>
 
 </html>
