@@ -1,7 +1,14 @@
 {% extends "layout.html" %}
 
-{% block title %} {{ month }}.{{ day }}.{{ year}} {% endblock %}
+{% block title %} 
+{% endblock %}
 
 {% block body %}
-<h1>{{ day }}.{{ month }}.{{ year }}</h1>
+<h1>{{day}}.{{month}}.{{year}}</h1>
+<h1>Today's Recommended Resource: {{resource.title}} ({{resource.type}})</h1>
+
+<a href="{{ url_for('calendar') }}">
+	View Calendar
+</a>
+
 {% endblock %}

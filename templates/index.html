@@ -6,12 +6,12 @@
     <title>Home Page</title>
 <head>
 <body>
-	<h1> This is our home page </h1>
-	<form class="forms" action="{{url_for('index')}}" method="post">
+	<h1> Welcome! </h1>
+	<form class="forms" action="{{url_for('login')}}" method="post">
 		<div>
 			<h3> Login here</h3>
 			<input type="text" name="username" class="form-control mb-4" placeholder="username">
-			<input type="text" name="password" class="form-control mb-4" placeholder="username">
+			<input type="text" name="password" class="form-control mb-4" placeholder="password">
 			<button class="btn btn-info"> Submit </button>
 		</div>
 	</form>
