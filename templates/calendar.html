@@ -2,11 +2,21 @@
 <html>
 
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+		integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Dosis|Quicksand|Notable|Suranna" rel="stylesheet">
+	<h1 style="margin-bottom: 20px;">
+		JUNE
+	</h1>
 	<style>
 		h1 {
-			color:white;
-			font-family: American Typewriter, serif;
+			font-size:40px;
+			text-align: center;
+			align-items: center;
+			color: white;
+			font-family: Suranna;
 		}
+
 		body {
 			background: #111;
 			font-family: Avenir, Helvetica, sans-serif;
@@ -98,8 +108,8 @@
 		}
 
 		section time a img {
-			width:100%;
-			height: 100%
+			width:180px;
+			height: 200px;
 		}
 
 		.hidden {
@@ -138,11 +148,12 @@
 </head>
 <main>
 	<section>
-		{% for i in range(1,31): %}
+		{% for i in range( (resources|length) - 1 ): %}
 		<time class="hidden">
-			<a href={{resource.link}}><img src={{resource.image}}>
-				<span class="caldate">{{i}}</span><span class="title">{{resource.title}}</span></a>
+			<a href={{resources[i+1].link}}><img class="imgs" src={{resources[i+1].image}}>
+				<span class="caldate">{{i+1}}</span><span class="title">{{resources[i+1].title}}</span></a>
 		</time>
+
 		{% endfor %}
 	</section>
 </main>

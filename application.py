@@ -17,7 +17,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-resources = []
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
@@ -25,6 +24,8 @@ db = scoped_session(sessionmaker(bind=engine))
 #Home page (fill in users database)
 @app.route("/", methods=["GET","POST"])
 def index():
+    if session.get("resources") is None:
+        session["resources"] = []
     users = db.execute("SELECT * FROM users").fetchall()
     return render_template("index.html", users = users)
 
@@ -60,10 +61,12 @@ def day():
         else:
             time_selected = "long"
         #select 1 resource whose length matches time selected by user (short/med/long)
-        resource = db.execute("SELECT * FROM resources WHERE length = :length", {"length":time_selected}).fetchone()
+        resource = db.execute("SELECT * FROM resources WHERE length = :length ORDER BY RANDOM()",{"length":time_selected}).fetchone()
         if resource is None:
             return render_template("error.html", message="Couldn't find a resource")
         session["resource"]=resource
+        session["resources"].append(resource)
+        print(len(session["resources"]))
     #get today's date 
     today = datetime.datetime.now()
     today = today.strftime("%Y-%m-%d")
@@ -74,4 +77,4 @@ def day():
 #Shows month calendar 
 @app.route("/calendar", methods=["GET","POST"])
 def calendar():
-    return render_template("calendar.html",resource=session.get("resource", None))
+    return render_template("calendar.html",resources=session.get("resources", None))
