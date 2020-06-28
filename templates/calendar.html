@@ -19,7 +19,7 @@
 
 		body {
 			background: #111;
-			font-family: Avenir, Helvetica, sans-serif;
+			font-family: Suranna;
 		}
 
 		main a {
@@ -102,25 +102,27 @@
 			border-bottom: none;
 		}
 
-		section time a:visited{
-			-webkit-filter: grayscale(0%);
-			 filter: grayscale(0%);
-		}
-
 		time:not(.blank) span {
 			color: #fff;
 			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 		}
 
 		section time a img {
-			width: 180px;
-			height: 200px;
-			-webkit-filter:grayscale(100%);
-			filter: grayscale(100%);
+			height: 14vw;
+			width: 14vw;
+			object-fit: cover;
+			/* -webkit-filter:grayscale(100%);
+			filter: grayscale(100%); */
 		}
+
 
 		.hidden {
 			opacity: 100;
+		}
+
+		.changeColor {
+
+			filter: grayscale(100%);
 		}
 
 		@media all and (max-width: 950px) {
@@ -151,8 +153,14 @@
 				font-size: 5vw;
 			}
 		}
+
+		img {
+			-webkit-filter: grayscale(100%);
+			filter: grayscale(80%);
+		}
 	</style>
 </head>
+
 <main>
 	<section>
 		{% for i in range( (resources|length) - 1 ): %}
@@ -166,13 +174,24 @@
 		{%else %}
 		{% set text = "Learn about: "%}
 		{% endif %}
+
+		{%if i == 3 %}
 		<time class="hidden">
-			<a href={{resources[i+1].link}}><img id =imgChange class="imgs" src={{resources[i+1].image}}>
+			<a onclick="changeColor()" href={{resources[i+1].link}}><img id="myImg" class="imgs"
+					src="http://www.onyxtruth.com/wp-content/uploads/2016/01/Black-Lives-Matter-Onyx-Truth.jpg">
 				<span class="caldate">{{i+1}}</span><span class="title">{{text}}{{resources[i+1].title}}</span></a>
 		</time>
+		{%else %}
+		<time class="hidden">
+			<a onclick="changeColor()" href={{resources[i+1].link}}><img id="myImg" class="imgs"
+					src={{resources[i+1].image}}>
+				<span class="caldate">{{i+1}}</span><span class="title">{{text}}{{resources[i+1].title}}</span></a>
+		</time>
+		{%endif %}
 
 		{% endfor %}
 	</section>
 </main>
+
 
 </html>

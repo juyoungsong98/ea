@@ -1,4 +1,4 @@
-we<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
 		<link href="https://fonts.googleapis.com/css?family=Suranna" rel="stylesheet">
@@ -22,19 +22,22 @@ we<!DOCTYPE html>
 				color:  #f1eadf;
 				margin:0;
 				padding: 0;
-				text-align: left;
 				font-family: 'Suranna', sans-serif;
 			}
 			a {
 				font-size: 20px;
-				color:  #f1eadf;
+				color: gray;
 				margin:0;
 				padding: 0;
 				font-family: 'Suranna', sans-serif;
+				text-decoration: none;
+				background-color: f1eadf;
+				padding: 0px 30px;
+				border-radius: 10px;
+				opacity: 0.9;
 			}
-			a:hover {
-				text-decoration: underline;
-				text-emphasis: 300;		
+			#cal:hover {
+				opacity: 1;
 			}
 			.split {
 				height: 100%;
@@ -43,22 +46,23 @@ we<!DOCTYPE html>
 				z-index: 1;
 				top: 0;
 				overflow-x: hidden;
-				display: flex;
-    			align-items: center;
-    			justify-content: center;
+				text-align: center;
 			}
 			.photo {
 				left:0;
+				border-right: 1px;
+				padding-top: 20vh;
 			}
 			.photo img {
 				width: 80%;
-				text-align: center;
 			}
 			.description {
-				text-align: center;
 				right:0;
-				padding: 0px 20px;
-				border-left: gray solid 2px;
+				border-left: gray solid 1px;
+				padding-top: 20vh;
+			}
+			.description div{
+				padding: 10px 20px;
 			}
 		</style>
     </head>
@@ -67,9 +71,9 @@ we<!DOCTYPE html>
 			<img src="{{ resource.image }}"></img>
 		</div>
 		<div class="split description">
-			<h2>{{day}}.{{month}}.{{year}}</h2>
-			<h1>Today's Recommended Resource: {{resource.title}} ({{resource.type}})</h1>
-			<a href="{{ url_for('calendar') }}">View Calendar</a>
+			<div><h2>{{day}}.{{month}}.{{year}}</h2></div>
+			<div><h1>Today's Recommended Resource: {{resource.title}} ({{resource.type}})</h1></div>
+			<div></div><a id="cal" href="{{ url_for('calendar') }}">View Calendar</a></div>
 		</div>
     </body>
 </html>

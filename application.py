@@ -24,6 +24,7 @@ db = scoped_session(sessionmaker(bind=engine))
 #Home page (fill in users database)
 @app.route("/", methods=["GET","POST"])
 def index():
+    session["resource"]=None
     if request.method == "POST":
         session["user"] = ""
     users = db.execute("SELECT * FROM users").fetchall()
