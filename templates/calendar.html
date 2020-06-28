@@ -10,7 +10,7 @@
 	</h1>
 	<style>
 		h1 {
-			font-size:40px;
+			font-size: 40px;
 			text-align: center;
 			align-items: center;
 			color: white;
@@ -108,7 +108,7 @@
 		}
 
 		section time a img {
-			width:180px;
+			width: 180px;
 			height: 200px;
 		}
 
@@ -149,9 +149,19 @@
 <main>
 	<section>
 		{% for i in range( (resources|length) - 1 ): %}
+		{% set text = "" %}
+		{%if resources[i+1].type in ["podcast"]%}
+		{% set text ="Listen to: " %}
+		{%elif resources[i+1].type in ["book", "article"]%}
+		{% set text ="Read: " %}
+		{%elif resources[i+1].type in ["video"]%}
+		{% set text = "Watch: "%}
+		{%else %}
+		{% set text = "Learn about: "%}
+		{% endif %}
 		<time class="hidden">
 			<a href={{resources[i+1].link}}><img class="imgs" src={{resources[i+1].image}}>
-				<span class="caldate">{{i+1}}</span><span class="title">{{resources[i+1].title}}</span></a>
+				<span class="caldate">{{i+1}}</span><span class="title">{{text}}{{resources[i+1].title}}</span></a>
 		</time>
 
 		{% endfor %}

@@ -24,8 +24,8 @@ db = scoped_session(sessionmaker(bind=engine))
 #Home page (fill in users database)
 @app.route("/", methods=["GET","POST"])
 def index():
-    if session.get("resources") is None:
-        session["resources"] = []
+    if request.method == "POST":
+        session["user"] = ""
     users = db.execute("SELECT * FROM users").fetchall()
     return render_template("index.html", users = users)
 
@@ -42,10 +42,12 @@ def login():
         if db.execute("SELECT * FROM users WHERE username =:username", {"username":username}).rowcount>0:
             return render_template("error.html", message="User already exists.")
         else:
+            #new user
+            session["resources"] = []
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                     {"username":username, "password":password})
             db.commit()
-        return render_template("choice.html")
+            return render_template("choice.html")
     else: #user/pass already in db (old user)
         return render_template("choice.html")
 
@@ -62,11 +64,12 @@ def day():
             time_selected = "long"
         #select 1 resource whose length matches time selected by user (short/med/long)
         resource = db.execute("SELECT * FROM resources WHERE length = :length ORDER BY RANDOM()",{"length":time_selected}).fetchone()
+        while resource in session["resources"]:
+            resource = db.execute("SELECT * FROM resources WHERE length = :length ORDER BY RANDOM()",{"length":time_selected}).fetchone()
         if resource is None:
             return render_template("error.html", message="Couldn't find a resource")
         session["resource"]=resource
         session["resources"].append(resource)
-        print(len(session["resources"]))
     #get today's date 
     today = datetime.datetime.now()
     today = today.strftime("%Y-%m-%d")
