@@ -102,6 +102,11 @@
 			border-bottom: none;
 		}
 
+		section time a:visited{
+			-webkit-filter: grayscale(0%);
+			 filter: grayscale(0%);
+		}
+
 		time:not(.blank) span {
 			color: #fff;
 			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
@@ -110,6 +115,8 @@
 		section time a img {
 			width: 180px;
 			height: 200px;
+			-webkit-filter:grayscale(100%);
+			filter: grayscale(100%);
 		}
 
 		.hidden {
@@ -160,7 +167,7 @@
 		{% set text = "Learn about: "%}
 		{% endif %}
 		<time class="hidden">
-			<a href={{resources[i+1].link}}><img class="imgs" src={{resources[i+1].image}}>
+			<a href={{resources[i+1].link}}><img id =imgChange class="imgs" src={{resources[i+1].image}}>
 				<span class="caldate">{{i+1}}</span><span class="title">{{text}}{{resources[i+1].title}}</span></a>
 		</time>
 
